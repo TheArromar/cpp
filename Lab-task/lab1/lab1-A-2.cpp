@@ -1,35 +1,62 @@
 #include <iostream>
 #include <iomanip>
+#include <string>
 using namespace std;
 
-int main(){
+int main() {
     string name, gender, address;
     int age;
     double walletAmount;
 
-    cout << endl << "Student Name             :";
+    // Input
+    cout << "\nStudent Name             : ";
     getline(cin, name);
-    cout << endl << "Student Gender           :";
+
+    cout << "\nStudent Gender           : ";
     getline(cin, gender);
-    cout << endl << "Student Age              :";
+
+    cout << "\nStudent Age              : ";
     cin >> age;
-    cout << endl << "Student Home Address     :";
-    cin.ignore();
+    cin.ignore(); // eat leftover '\n' before getline
+
+    cout << "\nStudent Home Address     : ";
     getline(cin, address);
-    cout << endl << "E-wallet Amount          :RM ";
+
+    cout << "\nE-wallet Amount          : RM ";
     cin >> walletAmount;
 
-    const int contentWidth = 85; 
+    // Layout constants
+    const int contentWidth = 85;      // width inside the | ... |
+    const int labelWidth   = 19;      // width for the label (e.g., "Name")
+    const int sepWidth     = 3;       // " : "
+    const int valueWidth   = contentWidth - labelWidth - sepWidth;
 
-    cout << endl << string(contentWidth + 4, '=');
-    cout << endl << "| " << setw(contentWidth) << left << "Student details as below:" << " |";
-    cout << endl << string(contentWidth + 4, '=');
-    cout << endl << "| " << setw(19) << left << "Name" << left << setw(1) << ":" << setw(67) << right << name << " |";
-    cout << endl << "| " << setw(19) << left << "Age" << left << setw(1) << ":" << setw(67) << right << age << " |";
-    cout << endl << "| " << setw(19) << left << "Gender" << left << setw(1) << ":" << setw(67) << right << gender << " |";
-    cout << endl << "| " << setw(19) << left << "Address" << left << setw(1) << ":" << setw(67) << right << address << " |";
-    cout << endl << "| " << setw(19) << left << "E-wallet" << left << setw(4) << ":" << setw(64) << right << fixed << setprecision(2) << walletAmount << " |";
-    cout << endl << string(contentWidth + 4, '=');
+    // Pre-format wallet as one string so setw applies to the whole thing
+    ostringstream os;
+    os << "RM " << fixed << setprecision(2) << walletAmount;
+    const string walletStr = os.str();
+
+    // Output box
+    cout << '\n' << string(contentWidth + 4, '=');
+    cout << "\n| " << setw(contentWidth) << left << "Student details as below:" << " |";
+    cout << '\n' << string(contentWidth + 4, '=');
+
+    cout << "\n| " << setw(labelWidth) << left << "Name"
+        << " : " << setw(valueWidth) << right << name << " |";
+
+    cout << "\n| " << setw(labelWidth) << left << "Age"
+        << " : " << setw(valueWidth) << right << age << " |";
+
+    cout << "\n| " << setw(labelWidth) << left << "Gender"
+        << " : " << setw(valueWidth) << right << gender << " |";
+
+    cout << "\n| " << setw(labelWidth) << left << "Address"
+        << " : " << setw(valueWidth) << right << address << " |";
+
+    cout << "\n| " << setw(labelWidth) << left << "E-wallet"
+        << " : " << setw(valueWidth) << right << walletStr << " |";
+
+    cout << '\n' << string(contentWidth + 4, '=') << '\n';
 
     return 0;
 }

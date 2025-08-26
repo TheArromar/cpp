@@ -7,7 +7,7 @@ int main(){
     int age;
     double walletAmount;
 
-    cout << endl << "Student Name             :";
+    cout << endl << "Student Name:             :";
     getline(cin, name);
     cout << endl << "Student Gender           :";
     getline(cin, gender);
